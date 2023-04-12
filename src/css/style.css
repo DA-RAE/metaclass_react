@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+body {
+    background-image: url("../../public/background.jpg");
+    text-align: center;
+}
+
+.mainButton {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    cursor: pointer;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+}
+
+.pageButton {
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.pageButton:hover {
+    border-color: darkgray;
+    color: darkgray;
+}
+
+.pageButton:active {
+    position: relative;
+    top: 2px;
+}

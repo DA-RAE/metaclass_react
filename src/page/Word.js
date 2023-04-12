@@ -1,8 +1,19 @@
 import '../css/style.css';
+import { useNavigate } from 'react-router-dom';
 
 function Word() {
+  const navigate = useNavigate();
+
+  function mainButton() {
+    navigate('/');
+  }
+
   return (
-    <h1>test</h1>
+    <>
+      <title>단어학습</title>
+      <button className='mainButton' onClick={mainButton}>MetaClass</button>
+      <br />
+    </>
   );
 }
 
