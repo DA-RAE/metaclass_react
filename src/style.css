@@ -97,6 +97,21 @@ td {
     top: 1px;
 }
 
+.updateButton {
+    cursor: pointer;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: lightgreen;
+}
+
+.updateButton:active {
+    position: relative;
+    top: 1px;
+}
+
 .deleteButton {
     cursor: pointer;
     border: none;
@@ -104,7 +119,7 @@ td {
     font-family: 'Nanum Gothic', sans-serif;
     font-size: 15px;
     font-weight: bold;
-    color: red;
+    color: lightcoral;
 }
 
 .deleteButton:active {
@@ -116,6 +131,6 @@ td {
     width: 25px;
 }
 
-.input100px {
-    width: 100px;
+.input150px {
+    width: 150px;
 }
