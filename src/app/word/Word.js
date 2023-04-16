@@ -1,40 +1,31 @@
 import '../../style.css';
 import { useState } from 'react';
-import { getDate } from '../../func'
+import { toEng, toNum, getNewArr, getDate, fetchPost } from '../../function'
 
 function Word() {
   const row = { num: '', language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', regdate: '' };
   const [rowMain, setRowMain] = useState(row);
-  const [rowArr, setRowArr] = useState([row]);
-
-  function rtnNewArr(arr, index, value) {
-    const newArr = [...arr];
-    newArr[index] = value;
-    return newArr;
-  }
-
-  function toEng(value) {
-    return (value.replace(/[^a-zA-Z]/g, ''));
-  }
-
-  function toNum(value) {
-    return (value.replace(/[^0-9]/g, ''));
-  }
+  const [rowArr, setRowArr] = useState([]);
 
   function insertRow() {
     const message =
-    `    번호 : ${rowMain.num}
-    언어 : ${rowMain.language}
-    레벨 : ${rowMain.level}
-    단원 : ${rowMain.chapter}
-    구분 : ${rowMain.gubun}
-    한국어 : ${rowMain.kl}
-    중국어 : ${rowMain.cl}
-    영어 : ${rowMain.el}
-    러시아어 : ${rowMain.rl}
-    갱신일자 : ${rowMain.regdate}`;
+      `번호 : ${rowMain.num}\n` +
+      `언어 : ${rowMain.language}\n` +
+      `레벨 : ${rowMain.level}\n` +
+      `단원 : ${rowMain.chapter}\n` +
+      `구분 : ${rowMain.gubun}\n` +
+      `한국어 : ${rowMain.kl}\n` +
+      `중국어 : ${rowMain.cl}\n` +
+      `영어 : ${rowMain.el}\n` +
+      `러시아어 : ${rowMain.rl}\n` +
+      `갱신일자 : ${rowMain.regdate}`;
     if (window.confirm(message)) {
-
+      const data = 
+      //fetchPost('http://localhost/php/insert.php', '');
+      const newArr = [...rowArr];
+      newArr.push(rowMain);
+      setRowArr(newArr);
+      resetRow();
     }
   }
 
@@ -44,16 +35,16 @@ function Word() {
 
   function updateRow(index) {
     const message =
-    `    번호 : ${rowArr[index].num}
-    언어 : ${rowArr[index].language}
-    레벨 : ${rowArr[index].level}
-    단원 : ${rowArr[index].chapter}
-    구분 : ${rowArr[index].gubun}
-    한국어 : ${rowArr[index].kl}
-    중국어 : ${rowArr[index].cl}
-    영어 : ${rowArr[index].el}
-    러시아어 : ${rowArr[index].rl}
-    갱신일자 : ${rowArr[index].regdate}`;
+      `번호 : ${rowArr[index].num}\n` +
+      `언어 : ${rowArr[index].language}\n` +
+      `레벨 : ${rowArr[index].level}\n` +
+      `단원 : ${rowArr[index].chapter}\n` +
+      `구분 : ${rowArr[index].gubun}\n` +
+      `한국어 : ${rowArr[index].kl}\n` +
+      `중국어 : ${rowArr[index].cl}\n` +
+      `영어 : ${rowArr[index].el}\n` +
+      `러시아어 : ${rowArr[index].rl}\n` +
+      `갱신일자 : ${rowArr[index].regdate}`;
     if (window.confirm(message)) {
 
     }
@@ -61,18 +52,20 @@ function Word() {
 
   function deleteRow(index) {
     const message =
-    `    번호 : ${rowArr[index].num}
-    언어 : ${rowArr[index].language}
-    레벨 : ${rowArr[index].level}
-    단원 : ${rowArr[index].chapter}
-    구분 : ${rowArr[index].gubun}
-    한국어 : ${rowArr[index].kl}
-    중국어 : ${rowArr[index].cl}
-    영어 : ${rowArr[index].el}
-    러시아어 : ${rowArr[index].rl}
-    갱신일자 : ${rowArr[index].regdate}`;
+      `번호 : ${rowArr[index].num}\n` +
+      `언어 : ${rowArr[index].language}\n` +
+      `레벨 : ${rowArr[index].level}\n` +
+      `단원 : ${rowArr[index].chapter}\n` +
+      `구분 : ${rowArr[index].gubun}\n` +
+      `한국어 : ${rowArr[index].kl}\n` +
+      `중국어 : ${rowArr[index].cl}\n` +
+      `영어 : ${rowArr[index].el}\n` +
+      `러시아어 : ${rowArr[index].rl}\n` +
+      `갱신일자 : ${rowArr[index].regdate}`;
     if (window.confirm(message)) {
-
+      const newArr = [...rowArr];
+      newArr.splice(index, 1);
+      setRowArr(newArr);
     }
   }
 
@@ -111,18 +104,18 @@ function Word() {
           </tr>
         </thead>
         <tbody>
-          {rowArr.map((value, index) =>
+          {rowArr.map((rowMap, index) =>
             <tr>
-              <th><span>{value.num}</span></th>
-              <th><input className='input25px' value={value.language} onInput={(event) => setRowArr(rtnNewArr(rowArr, index, { ...value, language: toEng(event.target.value) }))} maxLength={2} /></th>
-              <th><input className='input25px' value={value.level} onInput={(event) => setRowArr(rtnNewArr(rowArr, index, { ...value, level: toNum(event.target.value) }))} maxLength={1} /></th>
-              <th><input className='input25px' value={value.chapter} onInput={(event) => setRowArr(rtnNewArr(rowArr, index, { ...value, chapter: toNum(event.target.value) }))} maxLength={2} /></th>
-              <th><input className='input25px' value={value.gubun} onInput={(event) => setRowArr(rtnNewArr(rowArr, index, { ...value, gubun: toNum(event.target.value) }))} maxLength={1} /></th>
-              <th><input className='input150px' value={value.kl} onInput={(event) => setRowArr(rtnNewArr(rowArr, index, { ...value, kl: event.target.value }))} maxLength={50} /></th>
-              <th><input className='input150px' value={value.cl} onInput={(event) => setRowArr(rtnNewArr(rowArr, index, { ...value, cl: event.target.value }))} maxLength={50} /></th>
-              <th><input className='input150px' value={value.el} onInput={(event) => setRowArr(rtnNewArr(rowArr, index, { ...value, el: event.target.value }))} maxLength={50} /></th>
-              <th><input className='input150px' value={value.rl} onInput={(event) => setRowArr(rtnNewArr(rowArr, index, { ...value, rl: event.target.value }))} maxLength={50} /></th>
-              <th><span>{value.regdate}</span></th>
+              <th><span>{rowMap.num}</span></th>
+              <th><input className='input25px' value={rowMap.language} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, language: toEng(event.target.value) }))} maxLength={2} /></th>
+              <th><input className='input25px' value={rowMap.level} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, level: toNum(event.target.value) }))} maxLength={1} /></th>
+              <th><input className='input25px' value={rowMap.chapter} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, chapter: toNum(event.target.value) }))} maxLength={2} /></th>
+              <th><input className='input25px' value={rowMap.gubun} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, gubun: toNum(event.target.value) }))} maxLength={1} /></th>
+              <th><input className='input150px' value={rowMap.kl} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, kl: event.target.value }))} maxLength={50} /></th>
+              <th><input className='input150px' value={rowMap.cl} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, cl: event.target.value }))} maxLength={50} /></th>
+              <th><input className='input150px' value={rowMap.el} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, el: event.target.value }))} maxLength={50} /></th>
+              <th><input className='input150px' value={rowMap.rl} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, rl: event.target.value }))} maxLength={50} /></th>
+              <th><span>{rowMap.regdate}</span></th>
               <th><button className='updateButton' onClick={() => updateRow(index)}>수정</button></th>
               <th><button className='deleteButton' onClick={() => deleteRow(index)}>삭제</button></th>
             </tr>
