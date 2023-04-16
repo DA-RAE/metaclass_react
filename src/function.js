@@ -1,3 +1,17 @@
+function toEng(value) {
+    return value.replace(/[^a-zA-Z]/g, '');
+}
+
+function toNum(value) {
+    return value.replace(/[^0-9]/g, '');
+}
+
+function getNewArr(arr, index, value) {
+    const newArr = [...arr];
+    newArr[index] = value;
+    return newArr;
+}
+
 function getDate() {
     const today = new Date();
     const year = today.getFullYear();
@@ -6,7 +20,7 @@ function getDate() {
     return `${year}-${month}-${date}`;
 }
 
-function postForm(url, value) {
+function fetchPost(url, value) {
     fetch(url, {
         method: 'POST',
         body: value
@@ -15,4 +29,4 @@ function postForm(url, value) {
         .then(result => { return result });
 }
 
-export { getDate, postForm };
+export { toEng, toNum, getNewArr, getDate, fetchPost };
