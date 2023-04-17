@@ -7,6 +7,8 @@ function Word() {
   const [rowMain, setRowMain] = useState(column);
   const [rows, setRows] = useState([]);
 
+  selectRow();
+
   function message(index) {
     if (index == null) {
       return (
