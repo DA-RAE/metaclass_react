@@ -5,7 +5,7 @@ import { toEng, toNum, newArr, getDate } from '../../function'
 function Word() {
   const column = { no: '', language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: '', btnOpt: false };
   const [rowMain, setRowMain] = useState(column);
-  const [rows, setRows] = useState([column]);
+  const [rows, setRows] = useState([]);
 
   function message(index) {
     if (index == null) {
