@@ -1,71 +1,72 @@
 import '../../style.css';
 import { useState } from 'react';
-import { toEng, toNum, getNewArr, getDate, fetchPost } from '../../function'
+import { toEng, toNum, newArr, getDate, fetchPost } from '../../function'
 
 function Word() {
-  const column = { num: '', language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', regdate: '' };
+  const column = { no: '', language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: '', btnOpt: false };
   const [rowMain, setRowMain] = useState(column);
-  const [rowArr, setRowArr] = useState([]);
+  const [rows, setRows] = useState([]);
 
-  function insertRow() {
-    const message =
-      `번호 : ${rowMain.num}\n` +
-      `언어 : ${rowMain.language}\n` +
-      `레벨 : ${rowMain.level}\n` +
-      `단원 : ${rowMain.chapter}\n` +
-      `구분 : ${rowMain.gubun}\n` +
-      `한국어 : ${rowMain.kl}\n` +
-      `중국어 : ${rowMain.cl}\n` +
-      `영어 : ${rowMain.el}\n` +
-      `러시아어 : ${rowMain.rl}\n` +
-      `갱신일자 : ${rowMain.regdate}`;
-    if (window.confirm(message)) {
-      const data = 
-      //fetchPost('http://localhost/php/insert.php', '');
-      const newArr = [...rowArr];
-      newArr.push(rowMain);
-      setRowArr(newArr);
-      resetRow();
+  function message(index) {
+    if (index == null) {
+      return (
+        `번호 : ${rowMain.no}\n` +
+        `언어 : ${rowMain.language}\n` +
+        `레벨 : ${rowMain.level}\n` +
+        `단원 : ${rowMain.chapter}\n` +
+        `구분 : ${rowMain.gubun}\n` +
+        `한국어 : ${rowMain.kl}\n` +
+        `중국어 : ${rowMain.cl}\n` +
+        `영어 : ${rowMain.el}\n` +
+        `러시아어 : ${rowMain.rl}\n` +
+        `갱신일자 : ${rowMain.date}`);
+    }
+    else {
+      return (
+        `번호 : ${rows[index].no}\n` +
+        `언어 : ${rows[index].language}\n` +
+        `레벨 : ${rows[index].level}\n` +
+        `단원 : ${rows[index].chapter}\n` +
+        `구분 : ${rows[index].gubun}\n` +
+        `한국어 : ${rows[index].kl}\n` +
+        `중국어 : ${rows[index].cl}\n` +
+        `영어 : ${rows[index].el}\n` +
+        `러시아어 : ${rows[index].rl}\n` +
+        `갱신일자 : ${rows[index].date}`);
     }
   }
 
-  function resetRow() {
-    setRowMain(column);
+  function insertRow() {
+    if (window.confirm(message(null))) {
+      const initialData = {
+        table: 'word',
+        value: {
+          language: rowMain.language,
+          level: rowMain.level,
+          chapter: rowMain.chapter,
+          gubun: rowMain.gubun,
+          kl: rowMain.kl,
+          cl: rowMain.cl,
+          el: rowMain.el,
+          rl: rowMain.rl
+        }
+      };
+      const data = new FormData(initialData);
+      //fetchPost('http://localhost/php/insert.php', '');
+      setRows([...rows, rowMain]);
+      setRowMain(column);
+    }
   }
 
   function updateRow(index) {
-    const message =
-      `번호 : ${rowArr[index].num}\n` +
-      `언어 : ${rowArr[index].language}\n` +
-      `레벨 : ${rowArr[index].level}\n` +
-      `단원 : ${rowArr[index].chapter}\n` +
-      `구분 : ${rowArr[index].gubun}\n` +
-      `한국어 : ${rowArr[index].kl}\n` +
-      `중국어 : ${rowArr[index].cl}\n` +
-      `영어 : ${rowArr[index].el}\n` +
-      `러시아어 : ${rowArr[index].rl}\n` +
-      `갱신일자 : ${rowArr[index].regdate}`;
-    if (window.confirm(message)) {
-
+    if (window.confirm(message(index))) {
+      setRows(newArr(rows, index, { ...rows[index], btnOpt: false }));
     }
   }
 
   function deleteRow(index) {
-    const message =
-      `번호 : ${rowArr[index].num}\n` +
-      `언어 : ${rowArr[index].language}\n` +
-      `레벨 : ${rowArr[index].level}\n` +
-      `단원 : ${rowArr[index].chapter}\n` +
-      `구분 : ${rowArr[index].gubun}\n` +
-      `한국어 : ${rowArr[index].kl}\n` +
-      `중국어 : ${rowArr[index].cl}\n` +
-      `영어 : ${rowArr[index].el}\n` +
-      `러시아어 : ${rowArr[index].rl}\n` +
-      `갱신일자 : ${rowArr[index].regdate}`;
-    if (window.confirm(message)) {
-      const newArr = [...rowArr];
-      newArr.splice(index, 1);
-      setRowArr(newArr);
+    if (window.confirm(message(index))) {
+      setRows(...rows.splice(index, 1));
     }
   }
 
@@ -86,10 +87,9 @@ function Word() {
             <th>러시아어</th>
             <th>갱신일자</th>
             <th></th>
-            <th></th>
           </tr>
           <tr>
-            <th><span>{rowMain.num}</span></th>
+            <th><span>{rowMain.no}</span></th>
             <th><input className='input25px' value={rowMain.language} onInput={(event) => setRowMain({ ...rowMain, language: toEng(event.target.value) })} maxLength={2} /></th>
             <th><input className='input25px' value={rowMain.level} onInput={(event) => setRowMain({ ...rowMain, level: toNum(event.target.value) })} maxLength={1} /></th>
             <th><input className='input25px' value={rowMain.chapter} onInput={(event) => setRowMain({ ...rowMain, chapter: toNum(event.target.value) })} maxLength={2} /></th>
@@ -98,26 +98,24 @@ function Word() {
             <th><input className='input150px' value={rowMain.cl} onInput={(event) => setRowMain({ ...rowMain, cl: event.target.value })} maxLength={50} /></th>
             <th><input className='input150px' value={rowMain.el} onInput={(event) => setRowMain({ ...rowMain, el: event.target.value })} maxLength={50} /></th>
             <th><input className='input150px' value={rowMain.rl} onInput={(event) => setRowMain({ ...rowMain, rl: event.target.value })} maxLength={50} /></th>
-            <th><span>{rowMain.regdate}</span></th>
+            <th><span>{rowMain.date}</span></th>
             <th><button className='insertButton' onClick={insertRow}>추가</button></th>
-            <th><button className='deleteButton' onClick={resetRow}>리셋</button></th>
           </tr>
         </thead>
         <tbody>
-          {rowArr.map((rowMap, index) =>
+          {rows.map((rowMap, index) =>
             <tr>
-              <th><span>{rowMap.num}</span></th>
-              <th><input className='input25px' value={rowMap.language} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, language: toEng(event.target.value) }))} maxLength={2} /></th>
-              <th><input className='input25px' value={rowMap.level} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, level: toNum(event.target.value) }))} maxLength={1} /></th>
-              <th><input className='input25px' value={rowMap.chapter} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, chapter: toNum(event.target.value) }))} maxLength={2} /></th>
-              <th><input className='input25px' value={rowMap.gubun} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, gubun: toNum(event.target.value) }))} maxLength={1} /></th>
-              <th><input className='input150px' value={rowMap.kl} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, kl: event.target.value }))} maxLength={50} /></th>
-              <th><input className='input150px' value={rowMap.cl} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, cl: event.target.value }))} maxLength={50} /></th>
-              <th><input className='input150px' value={rowMap.el} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, el: event.target.value }))} maxLength={50} /></th>
-              <th><input className='input150px' value={rowMap.rl} onInput={(event) => setRowArr(getNewArr(rowArr, index, { ...rowMap, rl: event.target.value }))} maxLength={50} /></th>
-              <th><span>{rowMap.regdate}</span></th>
-              <th><button className='updateButton' onClick={() => updateRow(index)}>수정</button></th>
-              <th><button className='deleteButton' onClick={() => deleteRow(index)}>삭제</button></th>
+              <th><span>{rowMap.no}</span></th>
+              <th><input className='input25px' value={rowMap.language} onInput={(event) => setRows(newArr(rows, index, { ...rowMap, language: toEng(event.target.value), btnOpt: true }))} maxLength={2} /></th>
+              <th><input className='input25px' value={rowMap.level} onInput={(event) => setRows(newArr(rows, index, { ...rowMap, level: toNum(event.target.value), btnOpt: true }))} maxLength={1} /></th>
+              <th><input className='input25px' value={rowMap.chapter} onInput={(event) => setRows(newArr(rows, index, { ...rowMap, chapter: toNum(event.target.value), btnOpt: true }))} maxLength={2} /></th>
+              <th><input className='input25px' value={rowMap.gubun} onInput={(event) => setRows(newArr(rows, index, { ...rowMap, gubun: toNum(event.target.value), btnOpt: true }))} maxLength={1} /></th>
+              <th><input className='input150px' value={rowMap.kl} onInput={(event) => setRows(newArr(rows, index, { ...rowMap, kl: event.target.value, btnOpt: true }))} maxLength={50} /></th>
+              <th><input className='input150px' value={rowMap.cl} onInput={(event) => setRows(newArr(rows, index, { ...rowMap, cl: event.target.value, btnOpt: true }))} maxLength={50} /></th>
+              <th><input className='input150px' value={rowMap.el} onInput={(event) => setRows(newArr(rows, index, { ...rowMap, el: event.target.value, btnOpt: true }))} maxLength={50} /></th>
+              <th><input className='input150px' value={rowMap.rl} onInput={(event) => setRows(newArr(rows, index, { ...rowMap, rl: event.target.value, btnOpt: true }))} maxLength={50} /></th>
+              <th><span>{rowMap.date}</span></th>
+              <th><button className={rowMap.btnOpt ? 'updateButton' : 'deleteButton'} onClick={rowMap.btnOpt ? () => updateRow(index) : () => deleteRow(index)}>{rowMap.btnOpt ? '수정' : '삭제'}</button></th>
             </tr>
           )}
         </tbody>

@@ -6,10 +6,8 @@ function toNum(value) {
     return value.replace(/[^0-9]/g, '');
 }
 
-function getNewArr(arr, index, value) {
-    const newArr = [...arr];
-    newArr[index] = value;
-    return newArr;
+function newArr(arr, index, value) {
+  return ([...arr].map((v, i) => i == index ? value : v));
 }
 
 function getDate() {
@@ -29,4 +27,4 @@ function fetchPost(url, value) {
         .then(result => { return result });
 }
 
-export { toEng, toNum, getNewArr, getDate, fetchPost };
+export { toEng, toNum, newArr, getDate, fetchPost };
