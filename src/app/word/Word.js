@@ -1,13 +1,14 @@
 import '../../style.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toEng, toNum, newArr, getDate } from '../../function'
 
 function Word() {
-  const column = { no: '', language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: '', btnOpt: false };
-  const [rowMain, setRowMain] = useState(column);
-  const [rows, setRows] = useState([]);
+  useEffect(() => {
+    selectRow();
+  }, []);
 
-  selectRow();
+  const [rowMain, setRowMain] = useState({ no: 0, language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: '' });
+  const [rows, setRows] = useState([]);
 
   function message(index) {
     if (index == null) {
@@ -38,30 +39,21 @@ function Word() {
     }
   }
 
-  function getNextNo() {
-    let maxNum = 0;
-    for (let i = 0; i < rows.length; i++) {
-      const num = parseInt(rows[i].no);
-      if (num > maxNum) {
-        maxNum = num;
-      }
-    }
-    return maxNum++;
-  }
-
-  function initializeRowMain() {
-    const nextNo = getNextNo();
-    setRowMain(column);
-    setRowMain({ ...rowMain, no: nextNo.toString().padStart(3, '0'), date: getDate() });
-  }
-
   function selectRow() {
-    const value = new FormData();
-    value.append('table', 'word');
-    fetch('http://localhost/php/select.php', { method: 'POST', body: value })
+    const data = new FormData();
+    data.append('table', 'word');
+    fetch('http://localhost/php/select.php', { method: 'POST', body: data })
       .then((respons) => respons.json())
       .then((result) => setRows(result.map((row) => ({ ...row, btnOpt: false }))))
       .then(() => initializeRowMain());
+  }
+
+  function initializeRowMain() {
+    const data = new FormData();
+    data.append('table', 'word');
+    fetch('http://localhost/php/autoincre.php', { method: 'POST', body: data })
+      .then((respons) => respons.json())
+      .then((result) => setRowMain({ no: result, language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: getDate() }));
   }
 
   function insertRow() {
@@ -70,7 +62,7 @@ function Word() {
     if (rowMain.level.length < 1) alertMsg += `'레벨' 값은 비어있을 수 없습니다.\n\n`;
     if (rowMain.chapter.length < 2) alertMsg += `'단원' 값은 비어있을 수 없습니다.\n\n`;
     if (rowMain.gubun.length < 1) alertMsg += `'구분' 값은 비어있을 수 없습니다.\n\n`;
-    if (alertMsg != '') {
+    if (alertMsg !== '') {
       alertMsg = alertMsg.slice(0, -2);
       alert(alertMsg);
     }
@@ -89,9 +81,8 @@ function Word() {
         data.append('value[rl]', row.rl);
         data.append('value[date]', getDate());
         fetch('http://localhost/php/insert.php', { method: 'POST', body: data })
-          .then(() => setRows([...rows, row]))
-          .then(() => initializeRowMain())
-          .catch(() => alert('데이터 INSERT에 실패하였습니다.'));
+          .then(() => setRows([...rows, { ...row, btnOpt: false }]))
+          .then(() => initializeRowMain());
       }
     }
   }
@@ -102,7 +93,7 @@ function Word() {
     if (rows[index].level.length < 1) alertMsg += `'레벨' 값은 비어있을 수 없습니다.\n\n`;
     if (rows[index].chapter.length < 2) alertMsg += `'단원' 값은 비어있을 수 없습니다.\n\n`;
     if (rows[index].gubun.length < 1) alertMsg += `'구분' 값은 비어있을 수 없습니다.\n\n`;
-    if (alertMsg != '') {
+    if (alertMsg !== '') {
       alertMsg = alertMsg.slice(0, -2);
       alert(alertMsg);
     }
@@ -122,8 +113,7 @@ function Word() {
         data.append('value[rl]', row.rl);
         data.append('value[date]', getDate());
         fetch('http://localhost/php/update.php', { method: 'POST', body: data })
-          .then(() => setRows(newArr(rows, index, { ...row, btnOpt: false })))
-          .catch(() => alert('데이터 UPDATE에 실패하였습니다.'));
+          .then(() => setRows(newArr(rows, index, { ...row, btnOpt: false })));
       }
     }
   }
@@ -135,9 +125,7 @@ function Word() {
       data.append('table', 'word');
       data.append('id[no]', row.no);
       fetch('http://localhost/php/delete.php', { method: 'POST', body: data })
-        .then(() => setRows(rows.filter((_, i) => i != index)))
-        .then(() => setRowMain({ ...rowMain, no: getNextNo()}))
-        .catch(() => alert('데이터 DELETE에 실패하였습니다.'));
+        .then(() => setRows(rows.filter((_, i) => i !== index)));
     }
   }
 
