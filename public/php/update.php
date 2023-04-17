@@ -2,8 +2,8 @@
 include 'db.php';
 
 $table = $_POST['table'];
-$value = $_POST['value'];
 $id = $_POST['id'];
+$value = $_POST['value'];
 
 $bind = '';
 foreach (array_keys($value) as $key) {

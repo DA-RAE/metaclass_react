@@ -7,7 +7,7 @@ function toNum(value) {
 }
 
 function newArr(arr, index, value) {
-  return ([...arr].map((v, i) => i == index ? value : v));
+  return [...arr].map((v, i) => i == index ? value : v);
 }
 
 function getDate() {
@@ -18,13 +18,4 @@ function getDate() {
     return `${year}-${month}-${date}`;
 }
 
-function fetchPost(url, value) {
-    fetch(url, {
-        method: 'POST',
-        body: value
-    })
-        .then(respons => respons.json)
-        .then(result => { return result });
-}
-
-export { toEng, toNum, newArr, getDate, fetchPost };
+export { toEng, toNum, newArr, getDate };
