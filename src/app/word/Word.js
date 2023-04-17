@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { toEng, toNum, getNewArr, getDate, fetchPost } from '../../function'
 
 function Word() {
-  const row = { num: '', language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', regdate: '' };
-  const [rowMain, setRowMain] = useState(row);
+  const column = { num: '', language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', regdate: '' };
+  const [rowMain, setRowMain] = useState(column);
   const [rowArr, setRowArr] = useState([]);
 
   function insertRow() {
@@ -30,7 +30,7 @@ function Word() {
   }
 
   function resetRow() {
-    setRowMain(row);
+    setRowMain(column);
   }
 
   function updateRow(index) {
