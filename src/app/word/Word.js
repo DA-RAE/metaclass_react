@@ -7,7 +7,8 @@ function Word() {
     selectRow();
   }, []);
 
-  const [rowMain, setRowMain] = useState({ no: 0, language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: '' });
+  const column = { no: 0, language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: '' };
+  const [rowMain, setRowMain] = useState(column);
   const [rows, setRows] = useState([]);
 
   function message(index) {
@@ -39,29 +40,25 @@ function Word() {
     }
   }
 
+  function initializeRowMain() {
+    fetch('http://localhost/php/word/autoIncre.php', { method: 'POST' })
+      .then((respons) => respons.json())
+      .then((result) => setRowMain({ ...column, no: result, date: getDate() }));
+  }
+
   function selectRow() {
-    const data = new FormData();
-    data.append('table', 'word');
-    fetch('http://localhost/php/select.php', { method: 'POST', body: data })
+    fetch('http://localhost/php/word/select.php', { method: 'POST' })
       .then((respons) => respons.json())
       .then((result) => setRows(result.map((row) => ({ ...row, btnOpt: false }))))
       .then(() => initializeRowMain());
   }
 
-  function initializeRowMain() {
-    const data = new FormData();
-    data.append('table', 'word');
-    fetch('http://localhost/php/autoincre.php', { method: 'POST', body: data })
-      .then((respons) => respons.json())
-      .then((result) => setRowMain({ no: result, language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: getDate() }));
-  }
-
   function insertRow() {
     let alertMsg = '';
-    if (rowMain.language.length < 2) alertMsg += `'언어' 값은 비어있을 수 없습니다.\n\n`;
-    if (rowMain.level.length < 1) alertMsg += `'레벨' 값은 비어있을 수 없습니다.\n\n`;
-    if (rowMain.chapter.length < 2) alertMsg += `'단원' 값은 비어있을 수 없습니다.\n\n`;
-    if (rowMain.gubun.length < 1) alertMsg += `'구분' 값은 비어있을 수 없습니다.\n\n`;
+    if (rowMain.language.length < 2) alertMsg += `'언어' 값은 2자 이상이어야 합니다.\n\n`;
+    if (rowMain.level.length < 1) alertMsg += `'레벨' 값은 1자 이상이어야 합니다.\n\n`;
+    if (rowMain.chapter.length < 2) alertMsg += `'단원' 값은 2자 이상이어야 합니다.\n\n`;
+    if (rowMain.gubun.length < 1) alertMsg += `'구분' 값은 1자 이상이어야 합니다.\n\n`;
     if (alertMsg !== '') {
       alertMsg = alertMsg.slice(0, -2);
       alert(alertMsg);
@@ -69,18 +66,8 @@ function Word() {
     else {
       if (window.confirm(message(null))) {
         const row = { ...rowMain };
-        const data = new FormData();
-        data.append('table', 'word');
-        data.append('value[language]', row.language);
-        data.append('value[level]', row.level);
-        data.append('value[chapter]', row.chapter);
-        data.append('value[gubun]', row.gubun);
-        data.append('value[kl]', row.kl);
-        data.append('value[cl]', row.cl);
-        data.append('value[el]', row.el);
-        data.append('value[rl]', row.rl);
-        data.append('value[date]', getDate());
-        fetch('http://localhost/php/insert.php', { method: 'POST', body: data })
+        const data = new URLSearchParams(row);
+        fetch('http://localhost/php/word/insert.php', { method: 'POST', body: data })
           .then(() => setRows([...rows, { ...row, btnOpt: false }]))
           .then(() => initializeRowMain());
       }
@@ -89,10 +76,10 @@ function Word() {
 
   function updateRow(index) {
     let alertMsg = '';
-    if (rows[index].language.length < 2) alertMsg += `'언어' 값은 비어있을 수 없습니다.\n\n`;
-    if (rows[index].level.length < 1) alertMsg += `'레벨' 값은 비어있을 수 없습니다.\n\n`;
-    if (rows[index].chapter.length < 2) alertMsg += `'단원' 값은 비어있을 수 없습니다.\n\n`;
-    if (rows[index].gubun.length < 1) alertMsg += `'구분' 값은 비어있을 수 없습니다.\n\n`;
+    if (rows[index].language.length < 2) alertMsg += `'언어' 값은 2자 이상이어야 합니다.\n\n`;
+    if (rows[index].level.length < 1) alertMsg += `'레벨' 값은 1자 이상이어야 합니다.\n\n`;
+    if (rows[index].chapter.length < 2) alertMsg += `'단원' 값은 2자 이상이어야 합니다.\n\n`;
+    if (rows[index].gubun.length < 1) alertMsg += `'구분' 값은 1자 이상이어야 합니다.\n\n`;
     if (alertMsg !== '') {
       alertMsg = alertMsg.slice(0, -2);
       alert(alertMsg);
@@ -100,19 +87,8 @@ function Word() {
     else {
       if (window.confirm(message(index))) {
         const row = { ...rows[index] };
-        const data = new FormData();
-        data.append('table', 'word');
-        data.append('id[no]', row.no);
-        data.append('value[language]', row.language);
-        data.append('value[level]', row.level);
-        data.append('value[chapter]', row.chapter);
-        data.append('value[gubun]', row.gubun);
-        data.append('value[kl]', row.kl);
-        data.append('value[cl]', row.cl);
-        data.append('value[el]', row.el);
-        data.append('value[rl]', row.rl);
-        data.append('value[date]', getDate());
-        fetch('http://localhost/php/update.php', { method: 'POST', body: data })
+        const data = new URLSearchParams(row);
+        fetch('http://localhost/php/word/update.php', { method: 'POST', body: data })
           .then(() => setRows(newArr(rows, index, { ...row, btnOpt: false })));
       }
     }
@@ -121,10 +97,8 @@ function Word() {
   function deleteRow(index) {
     if (window.confirm(message(index))) {
       const row = { ...rows[index] };
-      const data = new FormData();
-      data.append('table', 'word');
-      data.append('id[no]', row.no);
-      fetch('http://localhost/php/delete.php', { method: 'POST', body: data })
+      const data = new URLSearchParams(row);
+      fetch('http://localhost/php/word/delete.php', { method: 'POST', body: data })
         .then(() => setRows(rows.filter((_, i) => i !== index)));
     }
   }
