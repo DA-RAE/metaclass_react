@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
 function WordTable() {
-  //CSS
+  //CSS in JS
   const Table = styled.table`
     margin-left: auto;
     margin-right: auto;
@@ -190,7 +190,7 @@ function WordTable() {
     }
   }
 
-  //JSX
+  //React JSX
   return (
     <div>
       <Table>

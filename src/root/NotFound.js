@@ -1,5 +1,5 @@
 function NotFound() {
-    //JSX
+    //React JSX
     return (
         <div>
             <title>404 Not Found.</title>

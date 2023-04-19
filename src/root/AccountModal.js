@@ -1,5 +1,5 @@
 function AccountModal() {
-  //JSX
+  //React JSX
   return (
     <div>
 

@@ -1,5 +1,5 @@
 function Speak() {
-    //JSX
+    //React JSX
     return (
         <div>
 

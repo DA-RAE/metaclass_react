@@ -1,5 +1,5 @@
 function SignIn() {
-    //JSX
+    //React JSX
     return (
         <div>
 

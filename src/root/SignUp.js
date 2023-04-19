@@ -1,5 +1,5 @@
 function SignUp() {
-    //JSX
+    //React JSX
     return (
         <div>
 

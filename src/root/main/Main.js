@@ -1,8 +1,8 @@
 function Main() {
-  //JSX
+  //React JSX
   return (
     <div>
-      <title>MetaClass 관리자 페이지</title>
+      <title>MetaClass</title>
     </div>
   );
 }
