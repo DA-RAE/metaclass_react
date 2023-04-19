@@ -1,5 +1,5 @@
 function Ingame() {
-    //React JSX
+    // JSX
     return (
         <div>
 

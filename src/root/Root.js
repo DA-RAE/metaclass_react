@@ -5,10 +5,50 @@ import Word from './word/Word';
 import { Routes, Route } from 'react-router-dom';
 
 function Root() {
-    //React JSX
+    // JSX
     return (
         <div>
             <NaviBar />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
+            <h1>d</h1>
+            <br />
             <Routes>
                 <Route path='/' element={<Main />} />
                 <Route path='/*' element={<NotFound />} />

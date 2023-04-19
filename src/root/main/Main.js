@@ -1,5 +1,5 @@
 function Main() {
-  //React JSX
+  // JSX
   return (
     <div>
       <title>MetaClass</title>

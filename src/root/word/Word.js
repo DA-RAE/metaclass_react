@@ -1,7 +1,7 @@
 import WordTable from './WordTable';
 
 function Word() {
-  //React JSX
+  // JSX
   return (
     <div>
       <title>단어학습</title>

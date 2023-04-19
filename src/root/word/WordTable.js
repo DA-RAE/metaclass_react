@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
 function WordTable() {
-  //CSS in JS
+  // CSS-in-JS
   const Table = styled.table`
     margin-left: auto;
     margin-right: auto;
@@ -69,7 +69,7 @@ function WordTable() {
     }
   `;
 
-  //Java Script
+  // JavaScript
   useEffect(() => {
     selectRow();
   }, []);
@@ -190,7 +190,7 @@ function WordTable() {
     }
   }
 
-  //React JSX
+  // JSX
   return (
     <div>
       <Table>

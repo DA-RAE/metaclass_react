@@ -1,5 +1,5 @@
 function Grade() {
-    //React JSX
+    // JSX
     return (
         <div>
 
