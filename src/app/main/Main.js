@@ -1,4 +1,4 @@
-import '../../style.css';
+import '../../resource/style.css';
 import { useNavigate } from 'react-router-dom';
 
 function Main() {

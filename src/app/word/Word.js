@@ -1,15 +1,15 @@
-import '../../style.css';
+import '../../resource/style.css';
+import { toEng, toNum, newArr, getDate } from '../../resource/function';
 import { useEffect, useState } from 'react';
-import { toEng, toNum, newArr, getDate } from '../../function'
 
 function Word() {
-  useEffect(() => {
-    selectRow();
-  }, []);
-
   const column = { no: 0, language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: '' };
   const [rowMain, setRowMain] = useState(column);
   const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    selectRow();
+  }, []);
 
   function message(index) {
     if (index == null) {

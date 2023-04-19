@@ -1,13 +1,16 @@
-import '../style.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import NotFound from './notfound/NotFound'
+import '../resource/style.css';
 import Main from './main/Main';
-import Login from './login/Login';
 import Word from './word/Word';
+import AccountModal from './accountModal/AccountModal';
+import NotFound from './notfound/NotFound';
+import { useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 function App() {
+    const [modalShow, setModalShow] = useState(false);
+
     const navigate = useNavigate();
-    
+
     function mainButton() {
         navigate('/');
     }
@@ -15,6 +18,7 @@ function App() {
     return (
         <>
             <button className='mainButton' onClick={mainButton}>MetaClass</button>
+            <AccountModal show={modalShow} onHide={() => setModalShow(false)} />
             <br />
 
             <Routes>

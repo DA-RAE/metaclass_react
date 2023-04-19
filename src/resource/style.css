@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
 
 body {
-    background-image: url("../public/background.jpg");
+    background-image: url("background.jpg");
     text-align: center;
 }
 
@@ -35,8 +35,7 @@ table {
     padding: 10px;
 }
 
-th,
-td {
+th {
     border-bottom: 1px solid white;
     padding: 10px;
     font-family: 'Nanum Gothic', sans-serif;
@@ -45,8 +44,12 @@ td {
     color: white;
 }
 
+.center {
+    text-align: center;
+}
+
 .mainButton {
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 30px;
     cursor: pointer;
     border: none;
@@ -55,6 +58,12 @@ td {
     font-size: 50px;
     font-weight: bold;
     color: white;
+}
+
+.accountButton {
+    position: absolute;
+    top: 15px;
+    right: 20px;
 }
 
 .pageButton {
@@ -133,4 +142,10 @@ td {
 
 .input150px {
     width: 150px;
+}
+
+.accountModal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
