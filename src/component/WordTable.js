@@ -123,7 +123,7 @@ function WordTable() {
   }
 
   return (
-    <div>
+    <>
       <Table>
         <thead>
           <tr>
@@ -171,7 +171,7 @@ function WordTable() {
           )}
         </tbody>
       </Table>
-    </div>
+    </>
   );
 }
 

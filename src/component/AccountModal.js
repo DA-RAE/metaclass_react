@@ -1,8 +1,8 @@
 function AccountModal() {
   return (
-    <div>
+    <>
 
-    </div>
+    </>
   );
 }
 

@@ -1,8 +1,8 @@
 function Main() {
   return (
-    <div>
+    <>
       <title>MetaClass</title>
-    </div>
+    </>
   );
 }
 

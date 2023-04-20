@@ -4,9 +4,9 @@ import Word from './Word';
 import Speak from './Speak';
 import Grade from './Grade';
 import Ingame from './Ingame';
-import NaviBar from '../component/NaviBar';
+import NavTopBar from '../component/NavTopBar';
 import NanumGothicBold from '../resource/NanumGothic-Bold.ttf';
-import DongleBold from '../resource/Dongle-Bold.ttf';
+import QuicksandBold from '../resource/Quicksand-Bold.ttf';
 import Favicon from '../resource/favicon.ico';
 import Background from '../resource/background.jpg';
 import { createGlobalStyle } from 'styled-components';
@@ -14,9 +14,9 @@ import { Routes, Route } from 'react-router-dom';
 
 function Root() {
     return (
-        <div>
+        <>
             <GlobalStyle />
-            <NaviBar />
+            <NavTopBar />
 
             <Routes>
                 <Route path='/' element={<Main />} />
@@ -27,7 +27,7 @@ function Root() {
                 <Route path='/grade' element={<Grade />} />
                 <Route path='/ingame' element={<Ingame />} />
             </Routes>
-        </div>
+        </>
     );
 }
 
@@ -38,8 +38,8 @@ const GlobalStyle = createGlobalStyle`
     }
 
     @font-face {
-        src: url(${DongleBold});
-        font-family: 'DongleBold';
+        src: url(${QuicksandBold});
+        font-family: 'QuicksandBold';
     }
 
     head {
@@ -51,11 +51,10 @@ const GlobalStyle = createGlobalStyle`
 
     body {
         background-image: url(${Background});
-        font-family: 'NanumGothicBold';
-        font-size: 15px;
-        font-weight: bold;
-        color: white;
         text-align: center;
+        font-family: 'NanumGothicBold';
+        color: white;
+        font-size: 15px;
     }
 `;
 
