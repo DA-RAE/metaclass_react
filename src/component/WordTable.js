@@ -38,7 +38,7 @@ function WordTable() {
 
   async function initializeRowm() {
     const result = await post(phpUrl.autoIncre, null);
-    if (result != '')
+    if (result !== '')
       setRowm({ ...column, no: result, date: getDate() });
   }
 
@@ -52,7 +52,7 @@ function WordTable() {
 
   async function selectRow() {
     const result = await post(phpUrl.select, null);
-    if (result != '') {
+    if (result !== '') {
       setRows(result.map((row) => ({ ...row, btnOpt: false })));
       initializeRowm();
     }
@@ -64,7 +64,7 @@ function WordTable() {
     else {
       const value = { ...rowm };
       const result = await post(phpUrl.insert, value);
-      if (result != '') {
+      if (result === 'SUCCESS') {
         setRows((prevState) => [...prevState, { ...value, btnOpt: false }]);
         initializeRowm();
       }
@@ -77,7 +77,7 @@ function WordTable() {
     else {
       const value = { ...rows[index] };
       const result = await post(phpUrl.update, value);
-      if (result != '')
+      if (result === 'SUCCESS')
         setRows((prevState) => [...prevState].map((v, i) => i === index ? ({ ...value, btnOpt: false }) : v));
     }
   }
@@ -85,7 +85,7 @@ function WordTable() {
   async function deleteRow(index) {
     const value = { ...rows[index] };
     const result = await post(phpUrl.delete, value);
-    if (result !== '')
+    if (result === 'SUCCESS')
       setRows((prevState) => prevState.filter((_, i) => i !== index));
   }
 

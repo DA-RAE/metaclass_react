@@ -22,6 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $stmt->bindValue(':v' . $index, $value, PDO::PARAM_STR);
         }
         $stmt->execute();
+
+        header('Content-Type: application/json');
+        echo json_encode('SUCCESS');
     } catch (PDOException $e) {
         echo '';
         exit;

@@ -7,6 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt = $connect->prepare($sql);
         $stmt->bindValue(':v0', $_POST['no'], PDO::PARAM_STR);
         $stmt->execute();
+
+        header('Content-Type: application/json');
+        echo json_encode('SUCCESS');
     } catch (PDOException $e) {
         echo '';
         exit;
