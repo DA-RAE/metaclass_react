@@ -56,69 +56,44 @@ function SignupForm() {
 
   return (
     <>
-      <br />
-      <br />
-      <h1>회 원 가 입</h1>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <div>
-        <Span>아이디 : </Span>
-        <Input name='id' value={user.id} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} pattern='^[a-zA-Z0-9]*$' required placeholder='아이디를 입력해주세요' />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      <div>
-        <Span>비밀번호 : </Span>
-        <Input name='password' value={user.password} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} required type='password' placeholder='비밀번호를 입력해주세요' />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      <div>
-        <Span>이메일 : </Span>
-        <Input name='email' value={user.email} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} pattern='^[a-zA-Z0-9@.]*$' required placeholder='이메일을 입력해주세요' />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      <div>
-        <Span>이름 :</Span>
-        <Input name='irum' value={user.irum} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} required placeholder='이름을 입력해주세요' />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      <div>
-        <Span>닉네임 : </Span>
-        <Input name='nickname' value={user.nickname} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} required placeholder='닉네임을 입력해주세요' />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      <Button onClick={() => submit()} color='white'>확 인</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <Button onClick={() => navigate('/')} color='white'>취 소</Button>
+      <Container>
+        <Box>
+          <h1>회 원 가 입</h1>
+          <Span>아이디 : </Span>
+          <Input name='id' value={user.id} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} pattern='^[a-zA-Z0-9]*$' required placeholder='아이디를 입력해주세요' />
+          <br />
+          <br />
+          <br />
+          <Span>비밀번호 : </Span>
+          <Input name='password' value={user.password} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} required type='password' placeholder='비밀번호를 입력해주세요' />
+          <br />
+          <br />
+          <br />
+          <Span>이메일 : </Span>
+          <Input name='email' value={user.email} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} pattern='^[a-zA-Z0-9@.]*$' required placeholder='이메일을 입력해주세요' />
+          <br />
+          <br />
+          <br />
+          <Span>이름 :</Span>
+          <Input name='irum' value={user.irum} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} required placeholder='이름을 입력해주세요' />
+          <br />
+          <br />
+          <br />
+          <Span>닉네임 : </Span>
+          <Input name='nickname' value={user.nickname} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} required placeholder='닉네임을 입력해주세요' />
+          <br />
+          <br />
+          <br />
+          <Button onClick={() => submit()} color='white'>확 인</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Button onClick={() => navigate('/')} color='white'>취 소</Button>
+        </Box>
+      </Container>
     </>
   );
 }
 
 const Input = styled.input`
-  position: absolute;
-  right: 40%;
-  width: ${(props) => props.width};
+  width: 100%;
   outline: none;
   border: none;
   border-bottom: 1px solid gray;
@@ -137,6 +112,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
+  width: 100%;
   cursor: pointer;
   border: 1px solid white;
   border-radius: 10px;
@@ -152,9 +128,28 @@ const Button = styled.button`
   }
 `;
 
-const Span = styled.span`
-  position: absolute;
-  left: 40%;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+`;
+
+const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  width: 400px;
+  height: 650px;
+  border: 1px solid white;
+  border-radius: 20px;
+  padding: 50px;
+`;
+
+const Span = styled.label`
+  text-align: left;
+  margin-bottom: 10px;
 `;
 
 export default SignupForm;
