@@ -8,14 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_POST['level'],
             $_POST['chapter'],
             $_POST['gubun'],
+            $_POST['id'],
             $_POST['kl'],
             $_POST['cl'],
             $_POST['el'],
             $_POST['rl'],
-            $_POST['date']
+            $_POST['date'],
+            $_POST['no']
         ];
 
-        $sql = 'INSERT INTO word (language, level, chapter, gubun, kl, cl, el, rl, date) VALUES (:v0, :v1, :v2, :v3, :v4, :v5, :v6, :v7, :v8)';
+        $sql = 'UPDATE speak SET language = :v0, level = :v1, chapter = :v2, gubun = :v3, id = :v4, kl = :v5, cl = :v6, el = :v7, rl = :v8, date = :v9 WHERE no = :v10';
         $stmt = $connect->prepare($sql);
         foreach ($valueArr as $index => $value) {
             $stmt->bindValue(':v' . $index, $value, PDO::PARAM_STR);

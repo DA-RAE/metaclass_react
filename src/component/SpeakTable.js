@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
-function WordTable() {
+function SpeakTable() {
   useEffect(() => {
     selectRow();
   }, []);
 
   const phpHost = 'http://localhost';
   const phpUrl = {
-    autoIncre: phpHost + '/php/word/autoIncre.php',
-    select: phpHost + '/php/word/select.php',
-    insert: phpHost + '/php/word/insert.php',
-    update: phpHost + '/php/word/update.php',
-    delete: phpHost + '/php/word/delete.php'
+    autoIncre: phpHost + '/php/speak/autoIncre.php',
+    select: phpHost + '/php/speak/select.php',
+    insert: phpHost + '/php/speak/insert.php',
+    update: phpHost + '/php/speak/update.php',
+    delete: phpHost + '/php/speak/delete.php'
   };
-  const column = { no: 0, language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: '' };
+  const column = { no: 0, language: '', level: '', chapter: '', gubun: '', id: '', kl: '', cl: '', el: '', rl: '', date: '' };
   const [rowm, setRowm] = useState(column);
   const [rows, setRows] = useState([]);
 
@@ -24,7 +24,8 @@ function WordTable() {
       value = value.replace(/[^0-9]/g, "");
     else if (event.target.pattern == '^[a-zA-Z]*$')
       value = value.replace(/[^A-Za-z]/g, "");
-    setRowm((prevState) => ({ ...prevState, [event.target.name]: value, date: getDate() }));
+      setRowm((prevState) => ({ ...prevState, [event.target.name]: value, }));
+      setRowm((prevState) => ({ ...prevState, id: getId({ ...prevState, [event.target.name]: value, date: getDate() }) }));
   }
 
   function handleInputRows(event, index) {
@@ -33,7 +34,12 @@ function WordTable() {
       value = value.replace(/[^0-9]/g, "");
     else if (event.target.pattern == '^[a-zA-Z]*$')
       value = value.replace(/[^A-Za-z]/g, "");
-    setRows((prevState) => [...prevState].map((v, i) => i === index ? ({ ...prevState[index], [event.target.name]: value, date: getDate(), btnOpt: true }) : v));
+      setRows((prevState) => [...prevState].map((v, i) => i === index ? ({ ...prevState[index], [event.target.name]: value, date: getDate(), btnOpt: true }) : v));
+      setRows((prevState) => [...prevState].map((v, i) => i === index ? ({ ...prevState[index], id: getId({ ...prevState[index], [event.target.name]: value }) }) : v));
+  }
+
+  function getId(row) {
+    return row.no.toString().padStart(3, '0') + row.language + row.level + row.chapter + row.gubun;
   }
 
   function getDate() {
@@ -125,6 +131,7 @@ function WordTable() {
           <Th>레벨</Th>
           <Th>단원</Th>
           <Th>구분</Th>
+          <Th>키 값</Th>
           <Th>한국어</Th>
           <Th>중국어</Th>
           <Th>영어</Th>
@@ -138,10 +145,11 @@ function WordTable() {
           <Th><Input name='level' value={rowm.level} onChange={handleInputRowm} width='25px' minLength={1} maxLength={1} pattern='^[0-9]*$' required /></Th>
           <Th><Input name='chapter' value={rowm.chapter} onChange={handleInputRowm} width='25px' minLength={2} maxLength={2} pattern='^[0-9]*$' required /></Th>
           <Th><Input name='gubun' value={rowm.gubun} onChange={handleInputRowm} width='25px' minLength={1} maxLength={1} pattern='^[0-9]*$' required /></Th>
-          <Th><Input name='kl' value={rowm.kl} onChange={handleInputRowm} width='150px' minLength={1} maxLength={50} required /></Th>
-          <Th><Input name='cl' value={rowm.cl} onChange={handleInputRowm} width='150px' minLength={1} maxLength={50} required /></Th>
-          <Th><Input name='el' value={rowm.el} onChange={handleInputRowm} width='150px' minLength={1} maxLength={50} required /></Th>
-          <Th><Input name='rl' value={rowm.rl} onChange={handleInputRowm} width='150px' minLength={1} maxLength={50} required /></Th>
+          <Th>{rowm.id}</Th>
+          <Th><Input name='kl' value={rowm.kl} onChange={handleInputRowm} width='150px' minLength={1} maxLength={200} required /></Th>
+          <Th><Input name='cl' value={rowm.cl} onChange={handleInputRowm} width='150px' minLength={1} maxLength={200} required /></Th>
+          <Th><Input name='el' value={rowm.el} onChange={handleInputRowm} width='150px' minLength={1} maxLength={200} required /></Th>
+          <Th><Input name='rl' value={rowm.rl} onChange={handleInputRowm} width='150px' minLength={1} maxLength={200} required /></Th>
           <Th>{rowm.date}</Th>
           <Th><Button onClick={insertRow} color='cyan'>추가</Button></Th>
         </tr>
@@ -152,10 +160,11 @@ function WordTable() {
             <Th><Input name='level' value={row.level} onChange={(event) => handleInputRows(event, index)} width='25px' minLength={1} maxLength={1} pattern='^[0-9]*$' required /></Th>
             <Th><Input name='chapter' value={row.chapter} onChange={(event) => handleInputRows(event, index)} width='25px' minLength={2} maxLength={2} pattern='^[0-9]*$' required /></Th>
             <Th><Input name='gubun' value={row.gubun} onChange={(event) => handleInputRows(event, index)} width='25px' minLength={1} maxLength={1} pattern='^[0-9]*$' required /></Th>
-            <Th><Input name='kl' value={row.kl} onChange={(event) => handleInputRows(event, index)} width='150px' minLength={1} maxLength={50} required /></Th>
-            <Th><Input name='cl' value={row.cl} onChange={(event) => handleInputRows(event, index)} width='150px' minLength={1} maxLength={50} required /></Th>
-            <Th><Input name='el' value={row.el} onChange={(event) => handleInputRows(event, index)} width='150px' minLength={1} maxLength={50} required /></Th>
-            <Th><Input name='rl' value={row.rl} onChange={(event) => handleInputRows(event, index)} width='150px' minLength={1} maxLength={50} required /></Th>
+            <Th>{row.id}</Th>
+            <Th><Input name='kl' value={row.kl} onChange={(event) => handleInputRows(event, index)} width='150px' minLength={1} maxLength={200} required /></Th>
+            <Th><Input name='cl' value={row.cl} onChange={(event) => handleInputRows(event, index)} width='150px' minLength={1} maxLength={200} required /></Th>
+            <Th><Input name='el' value={row.el} onChange={(event) => handleInputRows(event, index)} width='150px' minLength={1} maxLength={200} required /></Th>
+            <Th><Input name='rl' value={row.rl} onChange={(event) => handleInputRows(event, index)} width='150px' minLength={1} maxLength={200} required /></Th>
             <Th>{row.date}</Th>
             <Th><Button onClick={row.btnOpt ? () => updateRow(index) : () => deleteRow(index)} color={row.btnOpt ? 'lightgreen' : 'red'}>{row.btnOpt ? '수정' : '삭제'}</Button></Th>
           </tr>
@@ -211,4 +220,4 @@ const Th = styled.th`
   padding: 10px;
 `;
 
-export default WordTable;
+export default SpeakTable;
