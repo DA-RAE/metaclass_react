@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             echo json_encode('SUCCESS');
         }
     } catch (PDOException $e) {
-        echo '';
+        echo $e;
         exit;
     }
 } else {
