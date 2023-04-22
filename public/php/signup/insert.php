@@ -12,9 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_POST['date']
         ];
 
-        $sql = 'SELECT COUNT(id) as :v0 FROM member GROUP BY id HAVING COUNT(id) > 1';
+        $sql = 'SELECT COUNT(id) as :bind FROM member GROUP BY id HAVING COUNT(id) > 1';
         $stmt = $connect->prepare($sql);
-        $stmt->bindValue(':v0', $valueArr[0], PDO::PARAM_STR);
+        $stmt->bindValue(':bind', $valueArr[0], PDO::PARAM_STR);
         $stmt->execute();
         $count = $stmt->rowCount();
 
