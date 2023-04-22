@@ -13,7 +13,7 @@ function GradeTable() {
     update: phpHost + '/php/grade/update.php',
     delete: phpHost + '/php/grade/delete.php'
   };
-  const column = { id: '', irum: '', game: 0, chapter: 0, mid: 0, final: 0, total: 0, rank: 0 };
+  const column = { id: '', irum: '', game: '', chapter: '', mid: '', final: '', total: '', rank: '' };
   const [rowm, setRowm] = useState(column);
   const [rows, setRows] = useState([]);
 
@@ -23,6 +23,8 @@ function GradeTable() {
       value = value.replace(/[^0-9]/g, "");
     else if (event.target.pattern == '^[a-zA-Z]*$')
       value = value.replace(/[^A-Za-z]/g, "");
+    else if (event.target.pattern == '^[a-zA-Z0-9]*$')
+      value = value.replace(/[^A-Za-z0-9]/g, "");
     setRowm((prevState) => ({ ...prevState, [event.target.name]: value, }));
     setRowm((prevState) => ({ ...prevState, total: getTotal({ ...prevState, [event.target.name]: value }) }));
     setRowm((prevState) => ({ ...prevState, rank: getRank({ ...prevState, [event.target.name]: value }) }));
@@ -34,6 +36,8 @@ function GradeTable() {
       value = value.replace(/[^0-9]/g, "");
     else if (event.target.pattern == '^[a-zA-Z]*$')
       value = value.replace(/[^A-Za-z]/g, "");
+    else if (event.target.pattern == '^[a-zA-Z0-9]*$')
+      value = value.replace(/[^A-Za-z0-9]/g, "");
     setRows((prevState) => [...prevState].map((v, i) => i === index ? ({ ...prevState[index], [event.target.name]: value, btnOpt: true }) : v));
     setRows((prevState) => [...prevState].map((v, i) => i === index ? ({ ...prevState[index], total: getTotal({ ...prevState[index], [event.target.name]: value }) }) : v));
     setRows((prevState) => [...prevState].map((v, i) => i === index ? ({ ...prevState[index], rank: getRank({ ...prevState[index], [event.target.name]: value }) }) : v));
@@ -63,7 +67,9 @@ function GradeTable() {
   }
 
   async function insertRow() {
-    if (rowm.id < 1 ||
+    if (rows.some(row => row.id === rowm.id))
+      alert('중복된 아이디입니다')
+    else if (rowm.id < 1 ||
       rowm.irum < 1 ||
       rowm.game < 1 ||
       rowm.chapter < 1 ||

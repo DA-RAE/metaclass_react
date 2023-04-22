@@ -14,7 +14,7 @@ function WordTable() {
     update: phpHost + '/php/word/update.php',
     delete: phpHost + '/php/word/delete.php'
   };
-  const column = { no: 0, language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: '' };
+  const column = { no: '', language: '', level: '', chapter: '', gubun: '', kl: '', cl: '', el: '', rl: '', date: '' };
   const [rowm, setRowm] = useState(column);
   const [rows, setRows] = useState([]);
 
@@ -24,6 +24,8 @@ function WordTable() {
       value = value.replace(/[^0-9]/g, "");
     else if (event.target.pattern == '^[a-zA-Z]*$')
       value = value.replace(/[^A-Za-z]/g, "");
+    else if (event.target.pattern == '^[a-zA-Z0-9]*$')
+      value = value.replace(/[^A-Za-z0-9]/g, "");
     setRowm((prevState) => ({ ...prevState, [event.target.name]: value, date: getDate() }));
   }
 
@@ -33,6 +35,8 @@ function WordTable() {
       value = value.replace(/[^0-9]/g, "");
     else if (event.target.pattern == '^[a-zA-Z]*$')
       value = value.replace(/[^A-Za-z]/g, "");
+    else if (event.target.pattern == '^[a-zA-Z0-9]*$')
+      value = value.replace(/[^A-Za-z0-9]/g, "");
     setRows((prevState) => [...prevState].map((v, i) => i === index ? ({ ...prevState[index], [event.target.name]: value, date: getDate(), btnOpt: true }) : v));
   }
 
