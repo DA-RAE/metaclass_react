@@ -91,9 +91,9 @@ function WordTable() {
 
   async function post(url, value) {
     const data = new URLSearchParams(value);
-    fetch(url, { method: 'POST', body: data })
-      .then((respons) => respons.json())
-      .then((result) => { return result });
+    const response = await fetch(url, { method: 'POST', body: data });
+    const result = await response.json();
+    return result;
   }
 
   return (
@@ -128,7 +128,7 @@ function WordTable() {
           <Th><Input name='cl' value={rowm.cl} onChange={handleInputRowm} width='100px' maxLength={50} /></Th>
           <Th><Input name='el' value={rowm.el} onChange={handleInputRowm} width='100px' maxLength={50} /></Th>
           <Th><Input name='rl' value={rowm.rl} onChange={handleInputRowm} width='100px' maxLength={50} /></Th>
-          <Th>{rowm.data}</Th>
+          <Th>{rowm.date}</Th>
           <Th><Button onClick={insertRow} color='cyan'>추가</Button></Th>
         </tr>
         {rows.map((row, index) =>
@@ -142,7 +142,7 @@ function WordTable() {
             <Th><Input name='cl' value={row.cl} onChange={(event) => handleInputRows(event, index)} width='100px' maxLength={50} /></Th>
             <Th><Input name='el' value={row.el} onChange={(event) => handleInputRows(event, index)} width='100px' maxLength={50} /></Th>
             <Th><Input name='rl' value={row.rl} onChange={(event) => handleInputRows(event, index)} width='100px' maxLength={50} /></Th>
-            <Th>{row.data}</Th>
+            <Th>{row.date}</Th>
             <Th><Button onClick={row.btnOpt ? () => updateRow(index) : () => deleteRow(index)} color={row.btnOpt ? 'lightgreen' : 'red'}>{row.btnOpt ? '수정' : '삭제'}</Button></Th>
           </tr>
         )}
