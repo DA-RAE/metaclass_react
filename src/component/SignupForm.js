@@ -38,11 +38,11 @@ function SignupForm() {
     else {
       const value = { ...user, date: getDate() };
       const result = await post(phpUrl, value);
-      if (result == 'SUCCESS') {
+      if (result === 'SUCCESS') {
         alert('회원가입이 정상적으로 처리되었습니다');
         navigate('/');
       }
-      else if (result == 'DUPLICATION')
+      else if (result === 'DUPLICATION')
         alert('중복된 아이디입니다');
     }
   }

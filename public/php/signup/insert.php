@@ -17,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt->bindParam(':id', $valueArr[0]);
         $stmt->execute();
         $count = $stmt->fetchColumn();
+        header('Content-Type: application/json');
+        echo json_encode('DUPLICATION');
 
         if ($count > 0) {
             header('Content-Type: application/json');
