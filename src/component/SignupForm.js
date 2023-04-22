@@ -33,8 +33,6 @@ function SignupForm() {
       user.irum.length < 1 ||
       user.nickname.length < 1)
       alert('각 항목은 필수 입력사항입니다');
-    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(user.email))
-      alert('형식에 맞지 않는 이메일입니다');
     else {
       const value = { ...user, date: getDate() };
       const result = await post(phpUrl, value);
