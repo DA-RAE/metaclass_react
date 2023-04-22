@@ -22,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             header('Content-Type: application/json');
             echo json_encode('DUPLICATION');
         } else {
-            exit;
             $sql = 'INSERT INTO member (id, password, email, irum, nickname, date) VALUES (:v0, :v1, :v2, :v3, :v4, :v5)';
             $stmt = $connect->prepare($sql);
             foreach ($valueArr as $index => $value) {
