@@ -84,7 +84,8 @@ function SignupForm() {
           <br />
           <br />
           <br />
-          <Button onClick={() => submit()} color='white'>확 인</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Button onClick={submit} color='white'>확 인</Button>
+          <br />
           <Button onClick={() => navigate('/')} color='white'>취 소</Button>
         </Box>
       </Container>
