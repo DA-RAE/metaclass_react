@@ -33,6 +33,8 @@ function SignupForm() {
       user.irum.length < 1 ||
       user.nickname.length < 1)
       alert('각 항목은 필수 입력사항입니다');
+    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(user.email))
+      alert('형식에 맞지 않는 이메일입니다');
     else {
       const value = { ...user, date: getDate() };
       const result = await post(phpUrl, value);
@@ -63,22 +65,22 @@ function SignupForm() {
           <br />
           <br />
           <Span>비밀번호 : </Span>
-          <Input name='password' value={user.password} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} required type='password' placeholder='비밀번호를 입력해주세요' />
+          <Input name='password' value={user.password} onChange={handleInputUser} width='330px' minLength={1} maxLength={15} required type='password' placeholder='비밀번호를 입력해주세요' />
           <br />
           <br />
           <br />
           <Span>이메일 : </Span>
-          <Input name='email' value={user.email} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} pattern='^[a-zA-Z0-9@.]*$' required placeholder='이메일을 입력해주세요' />
+          <Input name='email' value={user.email} onChange={handleInputUser} width='330px' minLength={1} maxLength={30} pattern='^[a-zA-Z0-9@.]*$' required placeholder='이메일을 입력해주세요' />
           <br />
           <br />
           <br />
           <Span>이름 :</Span>
-          <Input name='irum' value={user.irum} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} required placeholder='이름을 입력해주세요' />
+          <Input name='irum' value={user.irum} onChange={handleInputUser} width='330px' minLength={1} maxLength={10} required placeholder='이름을 입력해주세요' />
           <br />
           <br />
           <br />
           <Span>닉네임 : </Span>
-          <Input name='nickname' value={user.nickname} onChange={handleInputUser} width='330px' minLength={1} maxLength={13} required placeholder='닉네임을 입력해주세요' />
+          <Input name='nickname' value={user.nickname} onChange={handleInputUser} width='330px' minLength={1} maxLength={10} required placeholder='닉네임을 입력해주세요' />
           <br />
           <br />
           <br />
