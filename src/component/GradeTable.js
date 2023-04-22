@@ -44,15 +44,15 @@ function GradeTable() {
   }
 
   function getTotal(row) {
-    return parseInt(row.game) + parseInt(row.chapter) + parseInt(row.mid) + parseInt(row.final);
+    return (parseInt(row.game) + parseInt(row.chapter) + parseInt(row.mid) + parseInt(row.final)).toString();
   }
 
   function getRank(row) {
     if (rows.length > 0) {
       const sortedTotal = rows.map(row => row.total).sort((a, b) => b - a);
-      return sortedTotal.findIndex((value) => value < row.total) + 1;
+      return (sortedTotal.findIndex((value) => value < row.total) + 1).toString();
     }
-    else return 1;
+    else return (1).toString();
   }
 
   function initialize() {
@@ -69,12 +69,12 @@ function GradeTable() {
   async function insertRow() {
     if (rows.some(row => row.id === rowm.id))
       alert('중복된 아이디입니다')
-    else if (rowm.id < 1 ||
-      rowm.irum < 1 ||
-      rowm.game < 1 ||
-      rowm.chapter < 1 ||
-      rowm.mid < 1 ||
-      rowm.final < 1)
+    else if (rowm.id.length < 1 ||
+      rowm.irum.length < 1 ||
+      rowm.game.length < 1 ||
+      rowm.chapter.length < 1 ||
+      rowm.mid.length < 1 ||
+      rowm.final.length < 1)
       alert('각 항목은 필수 입력사항입니다');
     else {
       const value = { ...rowm };
@@ -87,11 +87,11 @@ function GradeTable() {
   }
 
   async function updateRow(index) {
-    if (rows[index].irum < 1 ||
-      rows[index].game < 1 ||
-      rows[index].chapter < 1 ||
-      rows[index].mid < 1 ||
-      rows[index].final < 1)
+    if (rows[index].irum.length < 1 ||
+      rows[index].game.length < 1 ||
+      rows[index].chapter.length < 1 ||
+      rows[index].mid.length < 1 ||
+      rows[index].final.length < 1)
       alert('각 항목은 필수 입력사항입니다');
     else {
       const value = { ...rows[index] };

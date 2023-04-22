@@ -44,11 +44,11 @@ function IngameTable() {
   }
 
   function getTotal(row) {
-    return parseInt(row.game) + parseInt(row.chapter) + parseInt(row.mid) + parseInt(row.final);
+    return (parseInt(row.game1) + parseInt(row.game2) + parseInt(row.game3) + parseInt(row.game4) + parseInt(row.game5) + parseInt(row.game6) + parseInt(row.game7)).toString();
   }
 
   function getAvg(row) {
-    return getTotal(row)/7;
+    return (getTotal(row) / 7).toString();
   }
 
   async function selectRow() {
@@ -75,7 +75,7 @@ function IngameTable() {
       const value = { ...rowm };
       const result = await post(phpUrl.insert, value);
       if (result === 'SUCCESS') {
-        setRows((prevState) => [...prevState, { ...value, total: getTotal(value), btnOpt: false }]);
+        setRows((prevState) => [...prevState, { ...value, total: getTotal(value), avg: getAvg(value), btnOpt: false }]);
         setRowm(column);
       }
     }
@@ -95,7 +95,7 @@ function IngameTable() {
       const value = { ...rows[index] };
       const result = await post(phpUrl.update, value);
       if (result === 'SUCCESS')
-        setRows((prevState) => [...prevState].map((v, i) => i === index ? ({ ...value, total: getTotal(value), btnOpt: false }) : v));
+        setRows((prevState) => [...prevState].map((v, i) => i === index ? ({ ...value, total: getTotal(value), avg: getAvg(value), btnOpt: false }) : v));
     }
   }
 
