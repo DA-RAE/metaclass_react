@@ -107,7 +107,7 @@ function GradeTable() {
   }
 
   async function post(url, value) {
-    const data = new FormData(value);
+    const data = new URLSearchParams(value);
     const response = await fetch(url, { method: 'POST', body: data });
     const result = await response.json();
     return result;
