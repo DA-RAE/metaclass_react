@@ -12,13 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_POST['date']
         ];
 
-        $sql = 'SELECT COUNT(*) FROM member WHERE id = :id';
+        $sql = 'SELECT COUNT(id) as :v0 FROM member GROUP BY id HAVING COUNT(id) > 1';
         $stmt = $connect->prepare($sql);
-        $stmt->bindParam(':id', $valueArr[0]);
+        $stmt->bindValue(':v0', $valueArr[0], PDO::PARAM_STR);
         $stmt->execute();
-        $count = $stmt->fetchColumn();
-        header('Content-Type: application/json');
-        echo json_encode('DUPLICATION');
+        $count = $stmt->rowCount();
 
         if ($count > 0) {
             header('Content-Type: application/json');
