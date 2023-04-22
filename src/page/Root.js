@@ -1,4 +1,6 @@
 import NotFound from './NotFound';
+import Signin from './Signin';
+import Signup from './Signup';
 import Main from './Main';
 import Word from './Word';
 import Speak from './Speak';
@@ -17,10 +19,18 @@ function Root() {
         <>
             <GlobalStyle />
             <NavTopBar />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
 
             <Routes>
                 <Route path='/' element={<Main />} />
                 <Route path='/*' element={<NotFound />} />
+                <Route path='/signin' element={<Signin />} />
+                <Route path='/signup' element={<Signup />} />
                 <Route path='/main' element={<Main />} />
                 <Route path='/word' element={<Word />} />
                 <Route path='/speak' element={<Speak />} />

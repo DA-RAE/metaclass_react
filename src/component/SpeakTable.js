@@ -122,12 +122,6 @@ function SpeakTable() {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <Table>
         <tr>
           <Th>번호</Th>

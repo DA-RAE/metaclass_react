@@ -121,12 +121,6 @@ function GradeTable() {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <Table>
         <tr>
           <Th>ID</Th>

@@ -48,7 +48,7 @@ function IngameTable() {
   }
 
   function getAvg(row) {
-    return parseInt(getTotal(row) / 7).toString();
+    return Math.round((getTotal(row) / 7) * Math.pow(10, 1)) / Math.pow(10, 1).toString();
   }
 
   async function selectRow() {
@@ -115,12 +115,6 @@ function IngameTable() {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <Table>
         <tr>
           <Th>ID</Th>
