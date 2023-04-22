@@ -48,7 +48,7 @@ function IngameTable() {
   }
 
   function getAvg(row) {
-    return (getTotal(row) / 7).toString();
+    return parseInt(getTotal(row) / 7).toString();
   }
 
   async function selectRow() {
