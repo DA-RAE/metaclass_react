@@ -61,15 +61,15 @@ function IngameTable() {
   async function insertRow() {
     if (rows.some(row => row.id === rowm.id))
       alert('중복된 아이디입니다')
-    else if (rowm.id < 1 ||
-      rowm.irum < 1 ||
-      rowm.game1 < 1 ||
-      rowm.game2 < 1 ||
-      rowm.game3 < 1 ||
-      rowm.game4 < 1 ||
-      rowm.game5 < 1 ||
-      rowm.game6 < 1 ||
-      rowm.game7 < 1)
+    else if (rowm.id.length < 1 ||
+      rowm.irum.length < 1 ||
+      rowm.game1.length < 1 ||
+      rowm.game2.length < 1 ||
+      rowm.game3.length < 1 ||
+      rowm.game4.length < 1 ||
+      rowm.game5.length < 1 ||
+      rowm.game6.length < 1 ||
+      rowm.game7.length < 1)
       alert('각 항목은 필수 입력사항입니다');
     else {
       const value = { ...rowm };
@@ -82,14 +82,14 @@ function IngameTable() {
   }
 
   async function updateRow(index) {
-    if (rows[index].irum < 1 ||
-      rows[index].game1 < 1 ||
-      rows[index].game2 < 1 ||
-      rows[index].game3 < 1 ||
-      rows[index].game4 < 1 ||
-      rows[index].game5 < 1 ||
-      rows[index].game6 < 1 ||
-      rows[index].game7 < 1)
+    if (rows[index].irum.length < 1 ||
+      rows[index].game1.length < 1 ||
+      rows[index].game2.length < 1 ||
+      rows[index].game3.length < 1 ||
+      rows[index].game4.length < 1 ||
+      rows[index].game5.length < 1 ||
+      rows[index].game6.length < 1 ||
+      rows[index].game7.length < 1)
       alert('각 항목은 필수 입력사항입니다');
     else {
       const value = { ...rows[index] };
