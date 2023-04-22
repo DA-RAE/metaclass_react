@@ -37,7 +37,7 @@ function SignupForm() {
       alert('형식에 맞지 않는 이메일입니다');
     else {
       const value = { ...user, date: getDate() };
-      const result = await post(phpUrl.insert, value);
+      const result = await post(phpUrl, value);
       if (result === 'SUCCESS') {
         alert('회원가입이 정상적으로 처리되었습니다');
         navigate('/');
