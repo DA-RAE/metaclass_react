@@ -53,7 +53,7 @@ function GradeTable() {
 
   function initialize() {
     selectRow();
-    setRowm(...column);
+    setRowm(column);
   }
 
   async function selectRow() {
